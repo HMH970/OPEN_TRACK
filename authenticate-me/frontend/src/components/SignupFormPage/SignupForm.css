@@ -1,0 +1,25 @@
+form {
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+    font-size: 14px;
+    line-height: 1.43;
+    color: #484848;
+    background-color: #fff;
+    margin: 0;
+}
+input {
+display: flex !important;
+    min-height: 56px !important;
+    width: 100% !important;
+    margin: 0 !important;
+    border: none !important;
+    color: #222222 !important;
+    background-color: transparent !important;
+    border-radius: 0px !important;
+    box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.325);
+    font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;
+    font-size: 16px !important;
+    line-height: 20px !important;
+    font-weight: 400 !important;
+    border-color: transparent !important;
+    margin-bottom: 0px !important;
+}
