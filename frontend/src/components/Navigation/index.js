@@ -25,6 +25,7 @@ function Navigation({ isLoaded }){
   return (
     <ul>
       <li>
+        <i class="fa-solid fa-flag-checkered"></i>
         <NavLink exact to="/">Home</NavLink>
         {isLoaded && sessionLinks}
       </li>
