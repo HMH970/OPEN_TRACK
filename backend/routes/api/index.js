@@ -1,12 +1,12 @@
 const router = require('express').Router();
 const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
-
+// const tracksRouter = require('./tracks.js')
 //all api routes will be in here
 
 
 router.use('/session', sessionRouter);
-
+// router.use('/tracks', usersRouter)
 router.use('/users', usersRouter);
 
 
