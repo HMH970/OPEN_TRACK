@@ -20,8 +20,8 @@ router.get('/api/tracks', csrfProtection, asyncHandler(async(req, res) => {
 
 const userId = req.session.auth.userId;
 
-const tracks = await db.Track.findAll()
-const images = await db.Image.findAll()
+const tracks = await Track.findAll()
+const images = await Image.findAll()
 }))
 
 module.exports = router;
