@@ -8,7 +8,7 @@ const tracksRouter = require('./tracks')
 
 router.use('/session', sessionRouter);
 router.use('/users', usersRouter);
-// router.use('/tracks', tracksRouter)
+router.use('/tracks', tracksRouter)
 // router.use('/tracks', tracksRouter)
 
 
