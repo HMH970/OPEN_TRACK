@@ -12,6 +12,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER
       },
+      name: {
+        allowNull: false,
+        type: Sequelize.STRING(75)
+      },
       address: {
         allowNull: false,
         type: Sequelize.STRING(255)
@@ -28,15 +32,21 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING(50)
       },
+      phone: {
+        type: Sequelize.STRING(14)
+      },
+      web: {
+        type: Sequelize.STRING(50)
+      },
       price: {
         type: Sequelize.DECIMAL(6, 2)
       },
       createdAt: {
-        allowNull: false,
+
         type: Sequelize.DATE
       },
       updatedAt: {
-        allowNull: false,
+       
         type: Sequelize.DATE
       }
     });

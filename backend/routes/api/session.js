@@ -22,7 +22,7 @@ const validateLogin = [
 
 // Log in
 router.post(
-  
+
     '/',
     validateLogin,
     asyncHandler(async (req, res, next) => {

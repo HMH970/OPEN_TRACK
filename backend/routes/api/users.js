@@ -43,6 +43,12 @@ router.post(
     })
   );
 
+//log out
+  router.get('/logout', asyncHandler(async(req, res) => {
+ console.log('log out route hit')
+    logoutUser(req, res);
 
+    res.redirect('/users/login')
+  }))
 
 module.exports = router;
