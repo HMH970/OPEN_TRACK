@@ -1,27 +1,27 @@
 const express = require('express');
-const req = require('express/lib/request');
+// const req = require('express/lib/request');
+const asyncHandler = require("express-async-handler");
 const router = express.Router();
-const bcrypt = require("bcryptjs")
+// const { Track } = require("../../db/models");
 
 
 const db = require('../../db/models')
-const {User, Track, Review, Image, Booking} = db;
-const { asyncHandler, csrfProptection, handleValidationErrors, check, validationResult} = require('../../utils')
-const { route } = require('.');
-const app = require('../../app')
-// const {requireAuth} = require('../../utils')
+// ;
+// const { asyncHandler, csrfProptection, handleValidationErrors, check, validationResult} = require('../../utils')
+// const { route } = require('.');
+// // import { requireAuth } from '../../utils/auth';
+// const app = require('../../app')
+// // const {requireAuth} = require('../../utils')
 
 
-//route to get all the tracks
-router.get('/api/tracks', csrfProtection, asyncHandler(async(req, res) => {
-    if (req.session.auth === undefined) {
-        res.redirect('../')
-    }
 
-const userId = req.session.auth.userId;
+// route to get all the tracks
+router.get('/',  asyncHandler(async(req, res) => {
+  console.log("tracks route hit")
+const tracks = await db.Track.findAll()
+// const images = await db.Image.findAll()
+return res.json(tracks)
 
-const tracks = await Track.findAll()
-const images = await Image.findAll()
 }))
 
 module.exports = router;
