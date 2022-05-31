@@ -14,12 +14,14 @@ const db = require('../../db/models')
 // // const {requireAuth} = require('../../utils')
 
 
+
 // route to get all the tracks
 router.get('/',  asyncHandler(async(req, res) => {
   console.log("tracks route hit")
 const tracks = await db.Track.findAll()
 // const images = await db.Image.findAll()
 return res.json(tracks)
+
 }))
 
 module.exports = router;

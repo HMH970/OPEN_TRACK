@@ -5,7 +5,7 @@ import './SignupForm.css'
 import * as sessionActions from "../../store/session";
 
 function SignupFormPage() {
-    console.log("SignupFormPage")
+   
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
   const [email, setEmail] = useState("");
