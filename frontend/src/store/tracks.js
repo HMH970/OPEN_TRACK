@@ -24,7 +24,7 @@ const addOneTrack = (track) => {
 
 export const getTracks = () => async (dispatch) => {
   const response = await csrfFetch(`/api/tracks`);
-
+console.log("YOU ARE INSIDE GET ALL TRACK", response )
   if (response.ok) {
     const list = await response.json();
     dispatch(load(list));

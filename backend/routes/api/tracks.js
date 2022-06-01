@@ -10,10 +10,11 @@ const {User, Track, Image, Review} = require('../../db/models')
 
 // route to get all the tracks
 router.get('/',  asyncHandler(async(req, res) => {
-  console.log("tracks route hit")
+
 const tracks = await Track.findAll({
     include: [Image, User]
 })
+
 return res.json(tracks)
 }))
 // route to get track by id (api/tracks/:trackId)
