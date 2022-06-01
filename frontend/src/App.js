@@ -5,7 +5,7 @@ import { Route, Switch } from "react-router-dom";
 import * as sessionActions from "./store/session";
 import SignupFormPage from "./components/SignupFormPage";
 import Navigation from "./components/Navigation";
-import LandingPage from "./components/LandingPage";
+// import LandingPage from "./components/LandingPage";
 // import TrackDetail from "./components/Tracks";
 
 function App() {
