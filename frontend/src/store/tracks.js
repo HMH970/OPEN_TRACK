@@ -24,8 +24,7 @@ export const getTracks = () => async (dispatch) => {
 
 //initial state
 const initialState = {
-    list: [],
-    types: []
+
 }
 
 const sortList = (list) => {
@@ -36,6 +35,7 @@ const sortList = (list) => {
 
 //reducer
 const trackReducer = (state = initialState, action) => {
+
     switch(action.type) {
         case LOAD_TRACKS:
             const allTracks = {}
@@ -45,7 +45,7 @@ const trackReducer = (state = initialState, action) => {
             return {
                 ...allTracks,
                 ...state,
-                list: sortList(action.list)
+              
             }
     default:
         return state;

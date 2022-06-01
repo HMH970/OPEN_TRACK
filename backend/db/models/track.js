@@ -3,6 +3,7 @@ module.exports = (sequelize, DataTypes) => {
   const Track = sequelize.define(
     "Track",
     {
+      name: DataTypes.STRING,
       userId: DataTypes.INTEGER,
       address: DataTypes.STRING,
       city: DataTypes.STRING,
