@@ -1,10 +1,11 @@
 const express = require("express")
-const router = express.Router()
 const asyncHandler = require("express-async-handler")
 const {check} = require("express-validator")
 const {handleValidationErrors} = require("../../utils/validation")
-const {setTokenCookie, requireAuth} = require("../../utils/validation")
-const {User, Track, Image, Booking, Review} = require("../../db/models")
+const {User, Review} = require("../../db/models")
+
+const router = express.Router()
+
 
 //get alll reviews by track id
 router.get("/tracks/:id", asyncHandler(async(req, res) => {
@@ -27,7 +28,7 @@ const validateReviewAddForm = [
         handleValidationErrors,
 ]
 //create review
-router.post("/", requireAuth, asyncHandler(async(req, res) => {
+router.post("/",  asyncHandler(async(req, res) => {
     const {userId, trackId, review} = req.body;
     const newReview = await Review.build({
         userId, trackId, review,
@@ -36,7 +37,7 @@ router.post("/", requireAuth, asyncHandler(async(req, res) => {
     return res.json({newReview})
 }))
 //edit review
-router.put("/:reviewId", requireAuth, asyncHandler(async(req, res) => {
+router.put("/:reviewId",  asyncHandler(async(req, res) => {
     const {reviewId} = req.params;
     const {userId, trackId, review} = req.body;
     const updateReview = await Review.findByPk(reviewId)
@@ -59,3 +60,5 @@ router.delete("/:reviewId", asyncHandler(async(req, res) => {
         return res.json({message: "Review can not be found."})
     }
 }))
+
+module.exports = router;
