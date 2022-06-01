@@ -16,7 +16,7 @@ router.get("/tracks/:id", asyncHandler(async(req, res) => {
         },
         include: [{model: User}]
     });
-    return res.json({reviews})
+    return res.json(reviews)
 }))
 //review validators
 const validateReviewAddForm = [
@@ -34,7 +34,7 @@ router.post("/",  asyncHandler(async(req, res) => {
         userId, trackId, review,
     });
     await newReview.save()
-    return res.json({newReview})
+    return res.json(newReview)
 }))
 //edit review
 router.put("/:reviewId",  asyncHandler(async(req, res) => {
@@ -42,11 +42,11 @@ router.put("/:reviewId",  asyncHandler(async(req, res) => {
     const {userId, trackId, review} = req.body;
     const updateReview = await Review.findByPk(reviewId)
     if(userId === updateReview.userId && trackId === updateReview.trackId) {
-        await updateReview.update({review})
+        await updateReview.update(review)
         await updateReview.save();
-        return res.json({updateReview})
+        return res.json(updateReview)
     } else {
-        return res.json("Error with edit")
+        return res.json({message: "Error with edit"})
     }
 }))
 //delete review

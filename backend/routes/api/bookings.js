@@ -25,7 +25,7 @@ router.post("/",  asyncHandler(async(req, res) => {
         userId1, userId2, trackId, date, startTime, endTime
     });
     await newBooking.save()
-    return res.json({newBooking})
+    return res.json(newBooking)
 }))
 //edit booking
 router.put("/:bookingId",  asyncHandler(async(req, res) => {
@@ -37,7 +37,7 @@ router.put("/:bookingId",  asyncHandler(async(req, res) => {
             userId1, userId2, trackId, date, startTime, endTime
         })
         await updateBooking.save();
-        return res.json({updateBooking})
+        return res.json(updateBooking)
     } else {
         return res.json("Could not update booking")
     }

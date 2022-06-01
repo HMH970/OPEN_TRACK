@@ -11,7 +11,7 @@ const LandingPage=() =>{
     const dispatch = useDispatch();
     const sessionUser = useSelector((state) => state.session.user);
     const tracks = useSelector((state) => {
-        return state.tracks.map(trackId => state.tracks[trackId])
+        return state.tracks.list.map(trackId => state.tracks[trackId])
     })
     const [isLoaded, setIsLoaded] = useState(false);
     const [showForm, setShowForm] = useState(false)
@@ -23,14 +23,10 @@ const LandingPage=() =>{
 
     if(!tracks) {
         return null;
+    } else {
+        return null;
     }
 
-    return (
-       <>
-        {tracks.map(track => {
-          return   <div>`${track.name}`</div>
-        })}
-       </>
-    )
+
 }
 export default LandingPage

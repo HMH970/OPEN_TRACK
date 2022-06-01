@@ -4,7 +4,7 @@ const router = express.Router();
 const { check } = require("express-validator")
 const {handleValidationErrors } = require("../../utils/validation")
 
-const {User, Track, Image, Review, Booking} = require('../../db/models')
+const {User, Track, Image, Review} = require('../../db/models')
 
 
 
@@ -14,15 +14,15 @@ router.get('/',  asyncHandler(async(req, res) => {
 const tracks = await Track.findAll({
     include: [Image, User]
 })
-return res.json({boats})
+return res.json(tracks)
 }))
-// route to get track by id
-router.get('/', asyncHandler(async(req, res) => {
+// route to get track by id (api/tracks/:trackId)
+router.get('/:trackId', asyncHandler(async(req, res) => {
     const {trackId} = req.params
     const track = await Track.findByPk(trackId, {
         include: [Image, User, Review]
     })
-    return res.json({track})
+    return res.json(track)
 }))
 // create track validators
 const validateTrackAddForm = [
@@ -59,14 +59,14 @@ const validateTrackAddForm = [
         .withMessage("Url can not exceed 50 characters"),
     handleValidationErrors,
 ]
-// create new track
+// create new track MAY NEED REQUIRE AUTH
 router.post("/", validateTrackAddForm, asyncHandler(async(req, res) => {
     const {userId, name, address, city, state, country, phone, web, price} = req.body;
     const newTrack = await Track.build({
         userId, name, address, city, state, country, phone, web, price
     })
     await newTrack.save();
-    return res.json({newTrack})
+    return res.json(newTrack)
 
 }))
 //get track by id
@@ -75,7 +75,7 @@ router.get("/:trackId", asyncHandler(async(req,res) => {
     const track = await Track.findByPk(trackId, {
         include: [User, Image]
     })
-    return res.json({track})
+    return res.json(track)
 }))
 // edit track
 router.put("/:trackId"), validateTrackAddForm, asyncHandler(async(req, res) => {
@@ -88,7 +88,7 @@ router.put("/:trackId"), validateTrackAddForm, asyncHandler(async(req, res) => {
     if(trackToUpdate) {
     await trackToUpdate.update({userId, name, address, city, state, country, phone, web, price})
     await trackToUpdate.save()
-    return res.json({trackToUpdate})
+    return res.json(trackToUpdate)
     } else {
         return res.json("Track not found")
     }
