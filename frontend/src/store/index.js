@@ -2,8 +2,10 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import sessionReducer from './session'
 import trackReducer from './tracks'
-// import reviewsReducer from './reviews'
+import * as trackActions from "../store/tracks"
 
+// import reviewsReducer from './reviews'
+window.trackActions = trackActions
 
 const rootReducer = combineReducers({
     session: sessionReducer,

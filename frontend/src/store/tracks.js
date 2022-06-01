@@ -14,7 +14,7 @@ const load = (list) => {
 }
 
 //thunkity thunk thunk
-export const getTracks = async (dispatch) => {
+export const getTracks = () => async (dispatch) => {
     //send request from front end to backend
     const response = await csrfFetch('/api/tracks')
     const tracks = await response.json() //an array with objects of all the tracks
