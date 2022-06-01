@@ -1,7 +1,5 @@
 'use strict';
 
-const { defaultValueSchemable } = require("sequelize/types/utils");
-
 module.exports = {
    up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('Bookings', {

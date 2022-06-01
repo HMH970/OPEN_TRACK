@@ -1,27 +1,104 @@
 const express = require('express');
-// const req = require('express/lib/request');
 const asyncHandler = require("express-async-handler");
 const router = express.Router();
-// const { Track } = require("../../db/models");
+const { check } = require("express-validator")
+const {handleValidationErrors } = require("../../utils/validation")
+const {Op} = require("sequelize")
 
-
-const db = require('../../db/models')
-// ;
-// const { asyncHandler, csrfProptection, handleValidationErrors, check, validationResult} = require('../../utils')
-// const { route } = require('.');
-// // import { requireAuth } from '../../utils/auth';
-// const app = require('../../app')
-// // const {requireAuth} = require('../../utils')
+const {User, Track, Image, Review, Booking} = require('../../db/models')
 
 
 
 // route to get all the tracks
 router.get('/',  asyncHandler(async(req, res) => {
   console.log("tracks route hit")
-const tracks = await db.Track.findAll()
-const images = await db.Image.findAll()
-return res.json(images)
+const tracks = await Track.findAll({
+    include: [Image, User]
+})
+return res.json({boats})
+}))
+// route to get track by id
+router.get('/', asyncHandler(async(req, res) => {
+    const {trackId} = req.params
+    const track = await Track.findByPk(trackId, {
+        include: [Image, User, Review]
+    })
+    return res.json({track})
+}))
+// create track validators
+const validateTrackAddForm = [
+    check("name")
+        .exists({ checkFalsy: true})
+        .withMessage("Please Provide a Track Name.")
+        .isLength({ max: 75})
+        .withMessage("Name can not be longer than 75 characters."),
+    check("address")
+        .exists({ checkFalsy: true})
+        .withMessage("Please provide an address for track")
+        .isLength({ max: 255})
+        .withMessage("Address exceeds 255 characters"),
+    check("city")
+        .exists({ checkFalsy: true})
+        .withMessage("Must Provide a city.")
+        .isLength({ max: 100 })
+        .withMessage("City name exceeds 100 characters"),
+    check("state")
+        .exists({ checkFalsy: true})
+        .withMessage("Must Provide a state.")
+        .isLength({ max: 50 })
+        .withMessage("State name exceeds 50 characters"),
+    check("country")
+        .exists({ checkFalsy: true})
+        .withMessage("Must Provide a country.")
+        .isLength({ max: 50 })
+        .withMessage("Country name exceeds 50 characters"),
+    check("phone")
+        .isLength({ max: 14 })
+        .withMessage("Phone number exceeds 14 characters use Format (111) 111-1111"),
+    check("web")
+        .isLength({ max: 50 })
+        .withMessage("Url can not exceed 50 characters"),
+    handleValidationErrors,
+]
+// create new track
+router.post("/", validateTrackAddForm, asyncHandler(async(req, res) => {
+    const {userId, name, address, city, state, country, phone, web, price} = req.body;
+    const newTrack = await Track.build({
+        userId, name, address, city, state, country, phone, web, price
+    })
+    await newTrack.save();
+    return res.json({newTrack})
 
 }))
+//get track by id
+router.get("/:trackId", asyncHandler(async(req,res) => {
+    const {trackId} = req.params;
+    const track = await Track.findByPk(trackId, {
+        include: [User, Image]
+    })
+    return res.json({track})
+}))
+// edit track
+router.put("/:trackId"), validateTrackAddForm, asyncHandler(async(req, res) => {
+    const {trackId} = req.params;
+    const {userId, name, address, city, state, country, phone, web, price} = req.body;
+    const trackToUpdate = await Track.findByPk(trackId, {
+        include: [User, Image]
+    });
 
+    if(userId === trackToUpdate.userId) {
+    userId, name, address, city, state, country, phone, web, price
+    }
+    return res.json({trackToUpdate})
+})
+// delet track
+router.delete("/:trackid", asyncHandler(async(req, res) => {
+    const {trackId} = req.params;
+    const trackToDelete = await Track.findByPk(trackId);
+
+    if(trackToDelete) {
+        await trackToDelete.destroy();
+        return res.json({ message: "Track Delete Successful"})
+    }
+}))
 module.exports = router;

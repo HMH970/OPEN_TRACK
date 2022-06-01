@@ -1,5 +1,5 @@
 'use strict';
-import { Validator } from "sequelize";
+ const { Validator, Sequelize } = require("sequelize");
 
 module.exports = {
 
