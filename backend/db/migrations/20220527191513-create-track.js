@@ -10,7 +10,8 @@ module.exports = {
       },
       userId: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: { model: "Users"}
       },
       name: {
         allowNull: false,
@@ -42,12 +43,15 @@ module.exports = {
         type: Sequelize.DECIMAL(6, 2)
       },
       createdAt: {
-
-        type: Sequelize.DATE
+        allowNull: false,
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn("now")
       },
       updatedAt: {
-       
-        type: Sequelize.DATE
+        allowNull: false,
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn("now")
+
       }
     });
   },
