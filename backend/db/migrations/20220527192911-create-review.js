@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
-  async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Reviews', {
+   up: (queryInterface, Sequelize) => {
+    return queryInterface.createTable('Reviews', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -10,11 +10,13 @@ module.exports = {
       },
       userId: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: { model: "Users"}
       },
       trackId: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: { model: "Tracks"}
       },
       review: {
         allowNull: false,
@@ -25,15 +27,17 @@ module.exports = {
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn("now"),
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn("now"),
       }
     });
   },
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Reviews');
+   down: (queryInterface, Sequelize) => {
+    return queryInterface.dropTable('Reviews');
   }
 };

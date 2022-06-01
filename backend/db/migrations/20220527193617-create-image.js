@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
-  async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Images', {
+   up: (queryInterface, Sequelize) => {
+    return queryInterface.createTable('Images', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -10,23 +10,26 @@ module.exports = {
       },
       trackId: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: { model: "Tracks"}
       },
       url: {
         allowNull: false,
         type: Sequelize.STRING
       },
       createdAt: {
-
-        type: Sequelize.DATE
+        allowNull: false,
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn("now"),
       },
       updatedAt: {
-        
-        type: Sequelize.DATE
+        allowNull: false,
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn("now"),
       }
     });
   },
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Images');
+   down: (queryInterface, Sequelize) => {
+    return queryInterface.dropTable('Images');
   }
 };

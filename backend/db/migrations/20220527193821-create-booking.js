@@ -1,7 +1,10 @@
 'use strict';
+
+const { defaultValueSchemable } = require("sequelize/types/utils");
+
 module.exports = {
-  async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Bookings', {
+   up: (queryInterface, Sequelize) => {
+    return queryInterface.createTable('Bookings', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -10,14 +13,18 @@ module.exports = {
       },
       trackId: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {model: "Tracks"}
       },
       userId1: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {model: "Users"}
       },
       userId2: {
-        type: Sequelize.INTEGER
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {model: "Users"}
       },
       date: {
         allowNull: false,
@@ -33,15 +40,17 @@ module.exports = {
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn("now")
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn("now")
       }
     });
   },
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Bookings');
+   down:(queryInterface, Sequelize) => {
+    return queryInterface.dropTable('Bookings');
   }
 };
