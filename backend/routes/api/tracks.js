@@ -3,7 +3,6 @@ const asyncHandler = require("express-async-handler");
 const router = express.Router();
 const { check } = require("express-validator")
 const {handleValidationErrors } = require("../../utils/validation")
-const {Op} = require("sequelize")
 
 const {User, Track, Image, Review, Booking} = require('../../db/models')
 
@@ -86,10 +85,13 @@ router.put("/:trackId"), validateTrackAddForm, asyncHandler(async(req, res) => {
         include: [User, Image]
     });
 
-    if(userId === trackToUpdate.userId) {
-    userId, name, address, city, state, country, phone, web, price
-    }
+    if(trackToUpdate) {
+    await trackToUpdate.update({userId, name, address, city, state, country, phone, web, price})
+    await trackToUpdate.save()
     return res.json({trackToUpdate})
+    } else {
+        return res.json("Track not found")
+    }
 })
 // delet track
 router.delete("/:trackid", asyncHandler(async(req, res) => {
