@@ -9,7 +9,7 @@ import * as sessionActions from "../../store/session"
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
   const dispatch = useDispatch()
-  
+
   const logout = (e) => {
     e.preventDefault();
     dispatch(sessionActions.logout());
@@ -19,26 +19,23 @@ function Navigation({ isLoaded }){
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
-      <>
-
-
-      <ProfileButton user={sessionUser}/>
-      <NavLink to="/" onClick={logout}>Log Out</NavLink>
-      </>
+      <div>
+        <ProfileButton user={sessionUser}/>
+        <NavLink to="/" onClick={logout}>Log Out</NavLink>
+      </div>
     );
   } else {
     sessionLinks = (
-      <>
+      <div >
         <LoginFormModal />
         <NavLink to="/signup">Sign Up</NavLink>
-      </>
+      </div>
     );
   }
 
   return (
-    <ul>
-      <li>
-        <i class="fa-solid fa-flag-checkered"></i>
+    <ul >
+      <li  style={{listStyleType: "none"}}>
         <NavLink exact to="/">Home</NavLink>
 
         {isLoaded && sessionLinks}

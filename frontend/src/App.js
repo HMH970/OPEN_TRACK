@@ -5,7 +5,7 @@ import { Route, Switch } from "react-router-dom";
 import * as sessionActions from "./store/session";
 import SignupFormPage from "./components/SignupFormPage";
 import Navigation from "./components/Navigation";
-// import LandingPage from "./components/LandingPage";
+import LandingPage from "./components/LandingPage/index";
 // import TrackDetail from "./components/Tracks";
 
 function App() {
@@ -20,7 +20,9 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-
+          <Route path="/home">
+            <LandingPage />
+          </Route>
           <Route path="/signup">
             <SignupFormPage />
           </Route>
