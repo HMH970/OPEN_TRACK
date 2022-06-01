@@ -19,8 +19,8 @@ const db = require('../../db/models')
 router.get('/',  asyncHandler(async(req, res) => {
   console.log("tracks route hit")
 const tracks = await db.Track.findAll()
-// const images = await db.Image.findAll()
-return res.json(tracks)
+const images = await db.Image.findAll()
+return res.json(images)
 
 }))
 
