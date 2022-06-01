@@ -7,7 +7,7 @@ const {setTokenCookie, requireAuth} = require("../../utils/validation")
 const {User, Track, Image, Booking, Review} = require("../../db/models")
 
 //get alll reviews by track id
-router.get("/track/:id", asyncHandler(async(req, res) => {
+router.get("/tracks/:id", asyncHandler(async(req, res) => {
     const {trackId} = req.params;
     const reviews = await Review.findAll({
         where: {

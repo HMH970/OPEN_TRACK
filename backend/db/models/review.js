@@ -14,5 +14,5 @@ module.exports = (sequelize, DataTypes) => {
     Review.belongsTo(models.Track, { foreignKey: "trackId" });
     Review.belongsTo(models.User, { foreignKey: "userId" });
   };
-  return BoatReview;
+  return Review;
 };
