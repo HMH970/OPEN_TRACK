@@ -103,4 +103,15 @@ router.delete("/:trackid", asyncHandler(async(req, res) => {
         return res.json({ message: "Track Delete Successful"})
     }
 }))
+
+router.get("/:trackid/reviews", asyncHandler(async(req, res) => {
+    const {trackId} = req.params;
+    const reviews = await Review.findAll({
+        where: {
+            trackId
+        },
+        include: [{model: User}]
+    });
+    return res.json(reviews)
+}))
 module.exports = router;

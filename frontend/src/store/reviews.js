@@ -1,3 +1,7 @@
+import {csrfFetch} from "./csrf";
+
+
+
 export const LOAD_REVIEWS = "reviews/LOAD_REVIEWS";
 export const UPDATE_REVIEW = "reviews/UPDATE_REVIEW";
 export const REMOVE_REVIEW = "reviews/REMOVE_REVIEW";
@@ -26,8 +30,8 @@ const remove = (reviewId, trackId) => ({
 });
 
 //!!START SILENT
-export const getItems = (trackId) => async (dispatch) => {
-  const response = await fetch(`/api/tracks/${trackId}/reviews`);
+export const getReviews = (trackId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/tracks/${trackId}/reviews`);
 
   if (response.ok) {
     const reviews = await response.json();
@@ -36,7 +40,7 @@ export const getItems = (trackId) => async (dispatch) => {
 };
 
 export const updateReview = data => async dispatch => {
-  const response = await fetch(`/api/reviews/${data.id}`, {
+  const response = await csrfFetch(`/api/reviews/${data.id}`, {
     method: 'put',
     headers: {
       'Content-Type': 'application/json'
@@ -52,7 +56,7 @@ export const updateReview = data => async dispatch => {
 };
 
 export const deleteReview = (reviewId, trackId) => async dispatch => {
-  const response = await fetch(`/api/reviews/${reviewId}`, {
+  const response = await csrfFetch(`/api/reviews/${reviewId}`, {
     method: 'delete',
   });
 
@@ -64,7 +68,7 @@ export const deleteReview = (reviewId, trackId) => async dispatch => {
 };
 
 export const createReview = (data, trackId) => async dispatch => {
-  const response = await fetch(`/api/tracks/${trackId}/reviews`, {
+  const response = await csrfFetch(`/api/tracks/${trackId}/reviews`, {
     method: 'post',
     headers: {
       'Content-Type': 'application/json'
@@ -98,6 +102,9 @@ const reviewsReducer = (state = initialState, action) => {
       delete newState[action.reviewId];
       return newState;
     case ADD_REVIEW:
+       const newReview = {};
+       newReview[action.review] = action.review
+       return newReview
     case UPDATE_REVIEW:
       return {
         ...state,

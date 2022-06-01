@@ -1,6 +1,6 @@
 import { LOAD_REVIEWS, REMOVE_REVIEW, ADD_REVIEW } from "./reviews";
 import { ValidationError } from "../utils/validationError";
-// import { csrfFetch } from "./csrf"
+import { csrfFetch } from "./csrf"
 
 const LOAD = "tracks/LOAD"; //  get all
 // const REMOVE_REVIEWS = "reviews/REMOVE"
@@ -23,7 +23,7 @@ const addOneTrack = (track) => {
 };
 
 export const getTracks = () => async (dispatch) => {
-  const response = await fetch(`/api/tracks`);
+  const response = await csrfFetch(`/api/tracks`);
 
   if (response.ok) {
     const list = await response.json();
@@ -32,7 +32,7 @@ export const getTracks = () => async (dispatch) => {
 };
 
 export const getTrackReviews = (id) => async (dispatch) => {
-  const response = await fetch(`/api/${id}/reviews`);
+  const response = await csrfFetch(`/api/${id}/reviews`);
 
   if (response.ok) {
     const reviews = await response.json();
@@ -41,7 +41,7 @@ export const getTrackReviews = (id) => async (dispatch) => {
 };
 
 export const getOneTrack = (id) => async (dispatch) => {
-  const response = await fetch(`/api/tracks/${id}`);
+  const response = await csrfFetch(`/api/tracks/${id}`);
 
   if (response.ok) {
     const track = await response.json();
@@ -52,7 +52,7 @@ export const getOneTrack = (id) => async (dispatch) => {
 export const createTrack = (data) => async (dispatch) => {
   console.log("TOP OF THUNK IN STORE - data -> ", data);
   try {
-    const response = await fetch(`/api/tracks`, {
+    const response = await csrfFetch(`/api/tracks`, {
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -97,7 +97,7 @@ export const createTrack = (data) => async (dispatch) => {
 };
 
 export const updateTrack = (data) => async (dispatch) => {
-  const response = await fetch(`/api/tracks/${data.id}`, {
+  const response = await csrfFetch(`/api/tracks/${data.id}`, {
     method: "put",
     headers: {
       "Content-Type": "application/json",
@@ -120,7 +120,7 @@ const initialState = {
 const sortList = (list) => {
   return list
     .sort((trackA, trackB) => {
-      return trackA.number - trackB.number;
+      return trackA.name - trackB.name;
     })
     .map((track) => track.id);
 };
