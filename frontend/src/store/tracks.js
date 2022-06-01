@@ -1,9 +1,11 @@
-import { LOAD_REVIEWS, REMOVE_REVIEWS, ADD_REVIEWS } from "./items";
+import { LOAD_REVIEWS, REMOVE_REVIEW, ADD_REVIEW } from "./reviews";
 import { ValidationError } from "../utils/validationError";
+// import { csrfFetch } from "./csrf"
 
-const LOAD = "tracks/LOAD";
-
+const LOAD = "tracks/LOAD"; //  get all
+// const REMOVE_REVIEWS = "reviews/REMOVE"
 const ADD_ONE = "tracks/ADD_ONE";
+
 
 const load = (list) => ({
   type: LOAD,
@@ -34,7 +36,7 @@ export const getTrackReviews = (id) => async (dispatch) => {
 
   if (response.ok) {
     const reviews = await response.json();
-    dispatch(loadTypes(reviews));
+    dispatch(load(reviews));
   }
 };
 
@@ -105,7 +107,7 @@ export const updateTrack = (data) => async (dispatch) => {
 
   if (response.ok) {
     const track = await response.json();
-    dispatch(addTrack(track));
+    dispatch(addOneTrack(track));
     return track;
   }
 };
@@ -186,4 +188,4 @@ const trackReducer = (state = initialState, action) => {
   }
 };
 
-export default tracksReducer;
+export default trackReducer;
