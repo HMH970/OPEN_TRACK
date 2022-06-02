@@ -4,7 +4,7 @@ import {csrfFetch} from "./csrf"
 //action types
 const LOAD_TRACKS = "tracks/getTracks"
 const LOAD_ONE_TRACK ="tracks/getOneTrack"
-
+const CREATE_TRACK = "tracks/addTrack"
 //action creators
 const load = (list) => {
     return {
@@ -12,11 +12,18 @@ const load = (list) => {
         list,
     }
 }
-const getOne = (pl, id) => {
+const getOne = (pl) => {
     return {
         type: LOAD_ONE_TRACK,
         pl,
-        id,
+
+    }
+}
+const addTrack = (pl) => {
+    return {
+
+        type: CREATE_TRACK,
+        pl,
     }
 }
 
@@ -33,10 +40,27 @@ export const getTracks = () => async (dispatch) => {
 export const getOneTrack = (id) => async (dispatch) => {
     const response = await csrfFetch(`/api/tracks/${id}`);
 
-    if (response.ok) {
+
       const track = await response.json();
-      dispatch(getOne(track, id));
-    }
+// console.log("TRACK", track, "ID:", id)
+      dispatch(getOne(track));
+
+  };
+  //create track
+  export const createTrack = (data) => async (dispatch) => {
+    const { name, address, city, state, country, phone, web, price } = data
+    const response = await csrfFetch("/api/tracks", {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name, address, city, state, country, phone, web, price
+      }),
+    });
+    const track = await response.json();
+    dispatch(addTrack(track));
+    return track;
   };
 
 //initial state
@@ -61,16 +85,36 @@ const trackReducer = (state = initialState, action) => {
             })
             return {
                 ...allTracks,
-                ...state,
+
 
             }
         case LOAD_ONE_TRACK:
             const oneTrack = {}
            oneTrack[action.pl.id] = action.pl
            return {
-               oneTrack,
                ...state,
+               [action.pl.id]: action.pl,
+               oneTrack
            }
+        case CREATE_TRACK:
+            if(!state[action.track.id]) {
+                const newState = {
+                    ...state,
+                    [action.track.id]: action.track,
+                }
+                const trackList = newState.list.map((id) => newState[id]);
+                trackList.push(action.track);
+                newState.list = trackList;
+                return newState;
+              }
+              return {
+                ...state,
+                [action.track.id]: {
+                  ...state[action.track.id],
+                  ...action.track,
+                },
+              };
+            
     default:
         return state;
     }

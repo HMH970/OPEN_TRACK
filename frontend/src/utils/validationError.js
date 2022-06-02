@@ -1,4 +1,4 @@
-export class ValidationError extends Error {
+export default class ValidationError extends Error {
     constructor(errors, ...params) {
       super(...params);
       if (Error.captureStackTrace) {
