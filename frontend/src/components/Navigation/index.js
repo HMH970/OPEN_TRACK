@@ -19,14 +19,14 @@ function Navigation({ isLoaded }){
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
-      <div>
+      <div className="nav-div">
         <ProfileButton user={sessionUser}/>
         <NavLink to="/" onClick={logout}>Log Out</NavLink>
       </div>
     );
   } else {
     sessionLinks = (
-      <div >
+      <div className="nav-div">
         <LoginFormModal />
         <NavLink to="/signup">Sign Up</NavLink>
       </div>
@@ -34,8 +34,8 @@ function Navigation({ isLoaded }){
   }
 
   return (
-    <ul >
-      <li  style={{listStyleType: "none"}}>
+    <ul className="nav-ul">
+      <li  className="nav-li" style={{listStyleType: "none"}}>
         <NavLink exact to="/">Home</NavLink>
 
         {isLoaded && sessionLinks}

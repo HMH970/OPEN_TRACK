@@ -38,16 +38,14 @@ function LandingPage() {
                 // let url = Object.values(track.Images)[0].url
                 return (
                     <div key={track.id} className="all-tracks-div" style={{backgroundColor: "lightgray", display: "flex"}}>
-                        <ul className="track-detail-ul"style={{listStyleType: "none"}}> Track Details
+                        <ul className="track-detail-ul"style={{listStyleType: "none"}}>
                             <li className="track-detail-li">{`${track?.name}`}</li>
+                            <img style={{backgroundImage: `url(${urlArr[track.id -1]})`, height: "250px", width: "250", borderRadius: "10px", boxShadow: "5px 5px 5px rgba(155, 255, 200, 0.5)"}}src={`${urlArr[track.id -1]}`}/>
                             <li className="track-detail-li">{`${track?.address}`}</li>
-                            <li className="track-detail-li">{`${track?.city}`}</li>
-                            <li className="track-detail-li">{`${track?.state}`}</li>
-                            <li className="track-detail-li">{`${track?.country}`}</li>
+                            <li className="track-detail-li">{`${track?.city}`}, {`${track?.state}`} {`${track?.country}`}</li>
                             <li className="track-detail-li">{`${track?.phone}`}</li>
                             <li className="track-detail-li">{`${track?.web}`}</li>
                             <li className="track-detail-li">{`${track?.price}`}</li>
-                            <div className="track-image" style={{backgroundImage: `url(${urlArr[track.id -1]})`, height: "250px", width: "250", borderRadius: "10px", boxShadow: "5px 5px 5px rgba(155, 255, 200, 0.5)", margin: "0px auto", padding: "25px 25px 25px 25px"}}></div>
                         </ul>
 
                     </div>

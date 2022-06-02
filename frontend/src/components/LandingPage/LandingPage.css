@@ -3,11 +3,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
+    flex-wrap: wrap;
 }
 .track-detail-ul {
     border: 1px solid  rgba(155, 255, 200);
-    padding: 10px 0px 10px 0px;
+    padding: 10px 25% 10px 25%;
+    width: 50%;
 
 
+
+
+
+}
+.all-tracks-div {
+    width: 100%;
+    padding: 1fr 1fr 1fr 1fr;
 }
