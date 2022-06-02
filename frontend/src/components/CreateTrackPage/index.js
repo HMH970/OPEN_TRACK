@@ -47,13 +47,16 @@ function CreateTrackFormPage() {
 //     return setErrors(['Confirm Password field must be the same as the Password field']);
 //   };
     const handleSubmit = async (e) => {
+      console.log("IM IN THE SUBMIT")
        const payload = {
            name, address, city, state, country, phone, web, price
        }
        let createdTrack;
        try {
+         console.log("IM IN THE TRY BLOCK")
            createdTrack = dispatch(createTrack(payload))
        } catch (error) {
+         console.log("IM IN THE ERROR CATCH")
         if(error) setErrorMessages(error.errors);
         else setErrorMessages({ overall: error.toString().slice(7) });
        }

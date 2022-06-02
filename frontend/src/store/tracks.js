@@ -56,11 +56,12 @@ export const getOneTrack = (id) => async (dispatch) => {
       },
       body: JSON.stringify({
         name, address, city, state, country, phone, web, price
-      }),
+      })
     });
+    console.log(track, "LINE 63")
     const track = await response.json();
     dispatch(addTrack(track));
-    return track;
+    //return track
   };
 
 //initial state
@@ -114,7 +115,7 @@ const trackReducer = (state = initialState, action) => {
                   ...action.track,
                 },
               };
-            
+
     default:
         return state;
     }
