@@ -45,7 +45,7 @@ function LandingPage() {
                             <li className="track-detail-li">{`${track?.city}`}, {`${track?.state}`} {`${track?.country}`}</li>
                             <li className="track-detail-li">{`${track?.phone}`}</li>
                             <li className="track-detail-li">{`${track?.web}`}</li>
-                            <li className="track-detail-li">{`${track?.price}`}</li>
+                            <li className="track-detail-li">${`${track?.price}`}</li>
                         </ul>
 
                     </div>

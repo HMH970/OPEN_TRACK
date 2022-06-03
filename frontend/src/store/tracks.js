@@ -48,6 +48,7 @@ export const getOneTrack = (id) => async (dispatch) => {
   };
   //create track
   export const createTrack = (data) => async (dispatch) => {
+
     const { name, address, city, state, country, phone, web, price } = data
     const response = await csrfFetch("/api/tracks", {
       method: "POST",
@@ -55,13 +56,13 @@ export const getOneTrack = (id) => async (dispatch) => {
           "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        name, address, city, state, country, phone, web, price
+        userId: 1, name, address, city, state, country, phone, web, price
       })
     });
-    console.log(track, "LINE 63")
+
     const track = await response.json();
     dispatch(addTrack(track));
-    //return track
+    return track
   };
 
 //initial state
@@ -69,11 +70,11 @@ const initialState = {
 
 }
 
-const sortList = (list) => {
-    return list.sort((trackA, trackB) => {
-        return trackA.name - trackB.name;
-    }).map((track) => track.id)
-}
+// const sortList = (list) => {
+//     return list.sort((trackA, trackB) => {
+//         return trackA.name - trackB.name;
+//     }).map((track) => track.id)
+// }
 
 //reducer
 const trackReducer = (state = initialState, action) => {
