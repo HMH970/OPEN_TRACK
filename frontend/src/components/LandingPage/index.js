@@ -33,25 +33,27 @@ function LandingPage() {
     }, [dispatch])
 
     return (
-        <>
+        <div className="all-tracks-container" style={{backgroundColor: "lightgray", border: "2px solid black", display: "flex", flexWrap: "wrap", flexDirection: "row"}}>
             {trackArr.length > 0 && trackArr?.map((track) => {
                 // let url = Object.values(track.Images)[0].url
                 return (
-                    <div key={track.id} className="all-tracks-div" style={{backgroundColor: "lightgray", display: "flex"}}>
-                        <ul className="track-detail-ul"style={{listStyleType: "none"}}>
-                            <li className="track-detail-li">{`${track?.name}`}</li>
-                            <img style={{backgroundImage: `url(${urlArr[track.id -1]})`, height: "250px", width: "250", borderRadius: "10px", boxShadow: "5px 5px 5px rgba(155, 255, 200, 0.5)"}}src={`${urlArr[track.id -1]}`}/>
-                            <li className="track-detail-li">{`${track?.address}`}</li>
-                            <li className="track-detail-li">{`${track?.city}`}, {`${track?.state}`} {`${track?.country}`}</li>
-                            <li className="track-detail-li">{`${track?.phone}`}</li>
-                            <li className="track-detail-li">{`${track?.web}`}</li>
-                            <li className="track-detail-li">${`${track?.price}`}</li>
-                        </ul>
+                    <div key={track.id} className="all-tracks-div" style={{backgroundColor: "lightgray", flexDirection: 'row'}}>
+                        <div className="track-detail"style={{border: "1px dotted rgba(155, 255, 200, .7)",listStyleType: "none", display: "flex", flexDirection: "column", justifyContent: "center", width: "80%", alignItems: "center"}}>
+                            <NavLink to="tracks/new" className="track-detail-img-container">
+                                <img style={{backgroundImage: `url(${urlArr[track.id -1]})`, height: "250px", width: "250px", borderRadius: "10px", boxShadow: "5px 5px 5px rgba(155, 255, 200, 0.5)"}}src={`${urlArr[track.id -1]}`}/>
+                            </NavLink>
+                            <h2 className="track-detail-h2">{`${track?.name}`}</h2>
+                            <div className="track-details-con">{`${track?.address}`}</div>
+                            <div className="track-details-con">{`${track?.city}`}, {`${track?.state}`} {`${track?.country}`}</div>
+                            <div className="track-details-con">{`${track?.phone}`}</div>
+                            <div className="track-details-con">{`${track?.web}`}</div>
+                            <div className="track-details-con">${`${track?.price}`}</div>
+                        </div>
 
                     </div>
                 )
             })}
-        </>
+        </div>
     )
 }
 export default LandingPage;
