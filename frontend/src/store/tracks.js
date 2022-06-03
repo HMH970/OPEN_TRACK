@@ -42,7 +42,7 @@ export const getOneTrack = (id) => async (dispatch) => {
 
 
       const track = await response.json();
-console.log("TRACK", track, "ID:", id)
+// console.log("TRACK", track, "ID:", id)
       dispatch(getOne(track));
 
   };
@@ -59,7 +59,7 @@ console.log("TRACK", track, "ID:", id)
         userId: 1, name, address, city, state, country, phone, web, price
       })
     });
-    console.log(track, "LINE 63")
+
     const track = await response.json();
     dispatch(addTrack(track));
     return track
@@ -70,11 +70,11 @@ const initialState = {
 
 }
 
-const sortList = (list) => {
-    return list.sort((trackA, trackB) => {
-        return trackA.name - trackB.name;
-    }).map((track) => track.id)
-}
+// const sortList = (list) => {
+//     return list.sort((trackA, trackB) => {
+//         return trackA.name - trackB.name;
+//     }).map((track) => track.id)
+// }
 
 //reducer
 const trackReducer = (state = initialState, action) => {

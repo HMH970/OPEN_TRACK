@@ -25,7 +25,7 @@ function App() {
           <Route path="/" exact>
             <LandingPage />
           </Route>
-          <Route path="tracks/:trackId">
+          <Route path="/tracks/:trackId">
             <OneTrack />
           </Route>
           <Route  path="/signup">
