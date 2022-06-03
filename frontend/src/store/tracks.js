@@ -42,12 +42,13 @@ export const getOneTrack = (id) => async (dispatch) => {
 
 
       const track = await response.json();
-// console.log("TRACK", track, "ID:", id)
+console.log("TRACK", track, "ID:", id)
       dispatch(getOne(track));
 
   };
   //create track
   export const createTrack = (data) => async (dispatch) => {
+
     const { name, address, city, state, country, phone, web, price } = data
     const response = await csrfFetch("/api/tracks", {
       method: "POST",
@@ -55,13 +56,13 @@ export const getOneTrack = (id) => async (dispatch) => {
           "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        name, address, city, state, country, phone, web, price
+        userId: 1, name, address, city, state, country, phone, web, price
       })
     });
     console.log(track, "LINE 63")
     const track = await response.json();
     dispatch(addTrack(track));
-    //return track
+    return track
   };
 
 //initial state

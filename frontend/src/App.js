@@ -8,6 +8,7 @@ import Navigation from "./components/Navigation";
 import LandingPage from "./components/LandingPage/index";
 import OneTrack from "./components/LandingPage/GetTrackById";
 import CreateTrackFormPage from "./components/CreateTrackPage/index"
+import TrackDetailPage from "./components/TrackDetailPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ function App() {
             <LandingPage />
           </Route>
           <Route path="tracks/:trackId">
-            <OneTrack />
+            <TrackDetailPage />
           </Route>
           <Route  path="/signup">
             <SignupFormPage />
