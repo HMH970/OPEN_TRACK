@@ -25,14 +25,14 @@ function App() {
           <Route path="/" exact>
             <LandingPage />
           </Route>
+          <Route path="/tracks/new" exact>
+            <CreateTrackFormPage />
+          </Route>
           <Route path="/tracks/:trackId">
             <OneTrack />
           </Route>
           <Route  path="/signup">
             <SignupFormPage />
-          </Route>
-          <Route path="/tracks/new">
-            <CreateTrackFormPage />
           </Route>
         </Switch>
       )}

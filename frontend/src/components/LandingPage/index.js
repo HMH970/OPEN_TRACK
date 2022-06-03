@@ -39,7 +39,7 @@ function LandingPage() {
                 return (
                     <div key={track.id} className="all-tracks-div" style={{backgroundColor: "lightgray", flexDirection: 'row'}}>
                         <div className="track-detail"style={{border: "1px dotted rgba(155, 255, 200, .7)",listStyleType: "none", display: "flex", flexDirection: "column", justifyContent: "center", width: "80%", alignItems: "center"}}>
-                            <NavLink to="tracks/new" className="track-detail-img-container">
+                            <NavLink to={`tracks/${track.id}`} className="track-detail-img-container">
                                 <img style={{backgroundImage: `url(${urlArr[track.id -1]})`, height: "250px", width: "250px", borderRadius: "10px", boxShadow: "5px 5px 5px rgba(155, 255, 200, 0.5)"}}src={`${urlArr[track.id -1]}`}/>
                             </NavLink>
                             <h2 className="track-detail-h2">{`${track?.name}`}</h2>
