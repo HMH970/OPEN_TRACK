@@ -37,7 +37,7 @@ function OneTrack(pl, id) {
     <div >
       {trackClone.length > 0 ? (
         <div className="track-detail-page" style={{display: "flex", flexDirection: "row", justifyContent: "center",alignItems: "center", padding: "5px"}}>
-          <div className="track-card">
+          <div className="track-card" style={{width: "60%", marginRight: "25px"}}>
             <div className="track-card-img">
               <h2>{`${trackClone[0].name}`}</h2>
               <img

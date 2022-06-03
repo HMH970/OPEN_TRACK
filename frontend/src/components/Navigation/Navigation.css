@@ -4,14 +4,20 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     padding: 0px 0px 0px 0px;
-    width: 100%
+    width: 100%;
+    margin: 0px auto;
 }
 .nav-div {
     display:flex;
     align-items: center;
     justify-content: space-between;
 
+}
+.nav-buttons {
+    text-decoration: none;
+    font-size: 25px;
+    margin: 10px;
 }
 
