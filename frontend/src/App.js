@@ -6,7 +6,7 @@ import * as sessionActions from "./store/session";
 import SignupFormPage from "./components/SignupFormPage";
 import Navigation from "./components/Navigation";
 import LandingPage from "./components/LandingPage/index";
-import OneTrack from "./components/LandingPage/GetTrackById";
+import OneTrack from "./components/TrackDetailPage";
 import CreateTrackFormPage from "./components/CreateTrackPage/index"
 import TrackDetailPage from "./components/TrackDetailPage";
 
@@ -26,7 +26,7 @@ function App() {
             <LandingPage />
           </Route>
           <Route path="tracks/:trackId">
-            <TrackDetailPage />
+            <OneTrack />
           </Route>
           <Route  path="/signup">
             <SignupFormPage />
