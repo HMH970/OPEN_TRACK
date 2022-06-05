@@ -23,6 +23,7 @@ router.get('/:trackId', asyncHandler(async(req, res) => {
     const track = await Track.findByPk(trackId, {
         include: [Image, User, Review]
     })
+
     return res.json(track)
 }))
 // create track validators
@@ -67,11 +68,12 @@ router.post("/", validateTrackAddForm, asyncHandler(async(req, res) => {
         userId, name, address, city, state, country, phone, web, price
     })
     await newTrack.save();
+    res.redirect(`/${newTrack.id}`)
     return res.json(newTrack)
 
 }))
 //get track by id
-router.get("/:trackId", asyncHandler(async(req,res) => {
+router.get(`/:trackId(\\d+)`, asyncHandler(async(req,res) => {
     const {trackId} = req.params;
     const track = await Track.findByPk(trackId, {
         include: [User, Image]

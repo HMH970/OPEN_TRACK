@@ -8,16 +8,16 @@ const router = express.Router()
 
 
 //get alll reviews by track id
-// router.get("/tracks/:id", asyncHandler(async(req, res) => {
-//     const {trackId} = req.params;
-//     const reviews = await Review.findAll({
-//         where: {
-//             trackId
-//         },
-//         include: [{model: User}]
-//     });
-//     return res.json(reviews)
-// }))
+router.get("/tracks/:id", asyncHandler(async(req, res) => {
+    const {trackId} = req.params;
+    const reviews = await Review.findAll({
+        where: {
+            trackId
+        },
+        include: [{model: User}]
+    });
+    return res.json(reviews)
+}))
 //review validators
 const validateReviewAddForm = [
     check("review")

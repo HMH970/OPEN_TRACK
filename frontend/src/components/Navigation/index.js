@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
@@ -21,25 +21,30 @@ function Navigation({ isLoaded }){
     sessionLinks = (
       <div className="nav-div">
         <ProfileButton user={sessionUser}/>
-        <NavLink to="/" onClick={logout}>Log Out</NavLink>
+        <NavLink to="/" className="nav-buttons"onClick={logout}>Log Out</NavLink>
       </div>
     );
   } else {
     sessionLinks = (
       <div className="nav-div">
         <LoginFormModal />
-        <NavLink to="/signup">Sign Up</NavLink>
+        <NavLink to="/signup" className="nav-buttons">Sign Up</NavLink>
       </div>
     );
   }
 
   return (
-    <ul className="nav-ul">
+    <ul className="nav-ul" style={{backgroundColor: "rgba(155,255,200)"}}>
       <li  className="nav-li" style={{listStyleType: "none"}}>
-        <NavLink exact to="/">Home</NavLink>
-
-        {isLoaded && sessionLinks}
+        <NavLink exact to="/" className="nav-buttons">Home</NavLink>
       </li>
+      <li className="nav-li" style={{fontSize: "25px", fontWeight: "bold", color: "black"}}>
+        Open-Track
+      </li>
+      <li className="nav-li">
+      {isLoaded && sessionLinks}
+      </li>
+
     </ul>
   );
 }

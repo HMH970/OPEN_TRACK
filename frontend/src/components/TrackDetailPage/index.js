@@ -13,7 +13,7 @@ function OneTrack(pl, id) {
   const trackOne = useSelector((state) => state.track);
   const sessionUser = useSelector((state) => state.session.user);
   const trackClone = Object.values(trackOne).slice(0, 1);
-
+  const [editUrl, setEditUrl] = useState("")
   let Images;
   let urlArr = [];
   trackClone.map((track) => {
@@ -28,38 +28,55 @@ function OneTrack(pl, id) {
 
   useEffect(() => {
     dispatch(trackActions.getOneTrack(trackId));
+
     return () => {
       dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
     };
   }, [dispatch]);
 
+ 
+
   return (
     <div >
       {trackClone.length > 0 ? (
-        <div className="track-detail-page" style={{display: "flex", flexDirection: "row", justifyContent: "center",alignItems: "center", padding: "5px"}}>
-          <div className="track-card">
-            <div className="track-card-img">
-              <h2>{`${trackClone[0].name}`}</h2>
+        <div className="track-detail-page" style={{padding: "5px 25px 25px 25px", backgroundColor: "lightgray", height: "90%", display: "flex", flexDirection: "row", justifyContent: "center",alignItems: "center", padding: "5px"}}>
+          <div className="track-card" style={{maxWidth: "75%", marginRight: "25px"}}>
+            <div className="track-card-img" style={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
+              <h2 style={{textAlign: "center"}}>{`${trackClone[0].name}`}</h2>
               <img
                 style={{
-                  height: "250px",
-                  width: "250",
+                  maxHeight: "250px",
+                  maxWidth: "250px",
                   borderRadius: "10px",
-                  boxShadow: "5px 5px 5px rgba(155, 255, 200, 0.5)",
+                  boxShadow: "10px 10px  10px rgba(155, 255, 200, 0.75)",
                 }}
                 src={`${trackImgUrl}`}
               />
             </div>
             <div className="track-card-details">
-              <div id="track-card-location-price">
+              <h2 id="track-card-location-price" style={{textAlign: "center"}}>
                 {`${trackClone[0].city}, ${trackClone[0].state}`}
+              </h2>
+              <div id="track-card-location-price" style={{textAlign: "center", marginBottom: "25px"}}>
+                {`Only $${trackClone[0].price}/day`}
               </div>
-              <div id="track-card-location-price">
-                {`Only ${trackClone[0].price}/day`}
-              </div>
+
+
+            </div>
+          </div>
+          <div className="track-detail-info" style={{justifyContent: "center", alignItems: "center"}}>
+            <h2 style={{flexwrap: "none", textAlign: "center"}}>Track Details</h2>
+            <div style={{ maxHeight: "250px",
+                  padding: "25px", margin: "50px",
+                  backgroundColor: "rgba(155,255,200, .3)",
+                  maxWidth: "250px",
+                  borderRadius: "10px",
+                  boxShadow: "10px 10px  10px rgba(155, 255, 200, 0.75)",}}>
+                      here is some details about each track but its not part of crud so ill get to it later to be specific each track
             </div>
           </div>
           <div className="track-review-container" style={{border: "3px solid purple"}}>
+            <h1 style={{textAlign: "center"}}>Reviews</h1>
             <div className="oneTrack-review" style={{border: "2px solid blue"}}>
               this is where a random review will go eventually, i love filler
               data it's my favorite like aliens and butterflies. - My Daughter

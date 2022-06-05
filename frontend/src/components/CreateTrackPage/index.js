@@ -56,7 +56,7 @@ function CreateTrackFormPage() {
        }
        if (createdTrack) {
         setErrorMessages({});
-        history.push(`/tracks/${createdTrack.id}`);
+        history.push(`/tracks/${createdTrack?.id}`);
 
       }
     }

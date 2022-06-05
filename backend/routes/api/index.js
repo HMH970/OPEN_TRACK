@@ -4,6 +4,8 @@ const usersRouter = require('./users.js');
 const tracksRouter = require('./tracks.js')
 const reviewsRouter = require('./reviews')
 const bookingsRouter = require('./bookings')
+const {User, Track, Image} = require('../../db/models')
+const asyncHandler = require("express-async-handler");
 //all api routes will be in here
 
 
@@ -12,13 +14,15 @@ router.use('/users', usersRouter);
 router.use('/tracks', tracksRouter)
 router.use('/bookings', bookingsRouter)
 router.use('/reviews', reviewsRouter)
-// router.use('/tracks', tracksRouter)
 
+// router.get('/',  asyncHandler(async(req, res) => {
 
-// router.post('/test', function(req, res) {
-//     res.json({ requestBody: req.body });
-//   });
+//     const tracks = await Track.findAll({
+//         include: [User, Image]
+//     })
 
+//     return res.json(tracks)
+//     }))
 
 // // GET /api/set-token-cookie
 // const asyncHandler = require('express-async-handler');
