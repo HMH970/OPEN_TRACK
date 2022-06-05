@@ -7,7 +7,7 @@ import "./Navigation.css";
 
 export default function ProfileButton() {
   return (
-    <div style={{ color: "rgba(155, 255, 200, .9)", fontSize: "50px" }}>
+    <div style={{ color: "black", fontSize: "50px" }}>
       <i className="fa-solid fa-flag-checkered"></i>
     </div>
   );

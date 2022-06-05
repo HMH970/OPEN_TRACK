@@ -35,6 +35,7 @@ export const getTracks = () => async (dispatch) => {
     const tracks = await response.json() //an array with objects of all the tracks
 
     dispatch(load(tracks))
+    return tracks
 }
 //Get One Track
 export const getOneTrack = (id) => async (dispatch) => {
@@ -44,7 +45,7 @@ export const getOneTrack = (id) => async (dispatch) => {
       const track = await response.json();
 // console.log("TRACK", track, "ID:", id)
       dispatch(getOne(track));
-
+    return track
   };
   //create track
   export const createTrack = (data) => async (dispatch) => {

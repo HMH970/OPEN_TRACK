@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
@@ -34,11 +34,11 @@ function Navigation({ isLoaded }){
   }
 
   return (
-    <ul className="nav-ul">
+    <ul className="nav-ul" style={{backgroundColor: "rgba(155,255,200)"}}>
       <li  className="nav-li" style={{listStyleType: "none"}}>
         <NavLink exact to="/" className="nav-buttons">Home</NavLink>
       </li>
-      <li className="nav-li">
+      <li className="nav-li" style={{fontSize: "25px", fontWeight: "bold", color: "black"}}>
         Open-Track
       </li>
       <li className="nav-li">

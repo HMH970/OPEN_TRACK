@@ -28,19 +28,21 @@ function OneTrack(pl, id) {
 
   useEffect(() => {
     dispatch(trackActions.getOneTrack(trackId));
+
     return () => {
       dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
     };
   }, [dispatch]);
 
+ 
 
   return (
     <div >
       {trackClone.length > 0 ? (
-        <div className="track-detail-page" style={{backgroundColor: "lightgray", height: "90%", display: "flex", flexDirection: "row", justifyContent: "center",alignItems: "center", padding: "5px"}}>
+        <div className="track-detail-page" style={{padding: "5px 25px 25px 25px", backgroundColor: "lightgray", height: "90%", display: "flex", flexDirection: "row", justifyContent: "center",alignItems: "center", padding: "5px"}}>
           <div className="track-card" style={{maxWidth: "75%", marginRight: "25px"}}>
-            <div className="track-card-img">
-              <h2>{`${trackClone[0].name}`}</h2>
+            <div className="track-card-img" style={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
+              <h2 style={{textAlign: "center"}}>{`${trackClone[0].name}`}</h2>
               <img
                 style={{
                   maxHeight: "250px",
@@ -52,14 +54,25 @@ function OneTrack(pl, id) {
               />
             </div>
             <div className="track-card-details">
-              <h2 id="track-card-location-price">
+              <h2 id="track-card-location-price" style={{textAlign: "center"}}>
                 {`${trackClone[0].city}, ${trackClone[0].state}`}
               </h2>
-              <div id="track-card-location-price">
+              <div id="track-card-location-price" style={{textAlign: "center", marginBottom: "25px"}}>
                 {`Only $${trackClone[0].price}/day`}
               </div>
-               
 
+
+            </div>
+          </div>
+          <div className="track-detail-info" style={{justifyContent: "center", alignItems: "center"}}>
+            <h2 style={{flexwrap: "none", textAlign: "center"}}>Track Details</h2>
+            <div style={{ maxHeight: "250px",
+                  padding: "25px", margin: "50px",
+                  backgroundColor: "rgba(155,255,200, .3)",
+                  maxWidth: "250px",
+                  borderRadius: "10px",
+                  boxShadow: "10px 10px  10px rgba(155, 255, 200, 0.75)",}}>
+                      here is some details about each track but its not part of crud so ill get to it later to be specific each track
             </div>
           </div>
           <div className="track-review-container" style={{border: "3px solid purple"}}>
