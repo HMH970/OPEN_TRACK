@@ -65,7 +65,7 @@ export const createReview = (data) => async (dispatch) => {
           case LOAD_REVIEWS:
               const newReviews={};
               action.reviews.forEach(review => {
-                  newReviews[review.id] = comment;
+                  newReviews[review.id] = review;
               })
               return {
                   ...state,
