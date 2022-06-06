@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory, Redirect, useParams } from "react-router-dom";
+import { useHistory, Redirect, useParams, Route } from "react-router-dom";
 import * as trackActions from "../../store/tracks";
 import * as sessionActions from "../../store/session";
 
 function OneTrack(pl, id) {
   const { trackId } = useParams();
+  console.log(trackId)
   const dispatch = useDispatch();
   const history = useHistory();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -14,7 +15,11 @@ function OneTrack(pl, id) {
   const sessionUser = useSelector((state) => state.session.user);
   const trackClone = Object.values(trackOne).slice(0, 1);
   const [editUrl, setEditUrl] = useState("")
+
   let Images;
+  const refreshPage = ()=>{
+    window.location.reload();
+ }
   let urlArr = [];
   trackClone.map((track) => {
     Images = track.Images;
@@ -27,17 +32,19 @@ function OneTrack(pl, id) {
   let trackImgUrl = urlArr[0];
 
   useEffect(() => {
+
     dispatch(trackActions.getOneTrack(trackId));
 
     return () => {
       dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
     };
-  }, [dispatch]);
+  }, [dispatch, trackId]);
 
 
 
   return (
     <div >
+      {/* {console.log(trackClone.length)} */}
       {trackClone.length > 0  ?(
         <div className="track-detail-page" style={{padding: "5px 25px 25px 25px", backgroundColor: "lightgray", height: "90%", display: "flex", flexDirection: "row", justifyContent: "center",alignItems: "center", padding: "5px"}}>
           <div className="track-card" style={{maxWidth: "75%", marginRight: "25px"}}>
@@ -65,14 +72,15 @@ function OneTrack(pl, id) {
             </div>
           </div>
           <div className="track-detail-info" style={{justifyContent: "center", alignItems: "center"}}>
-            <h2 style={{flexwrap: "none", textAlign: "center"}}>Track Details</h2>
             <div style={{ maxHeight: "250px",
                   padding: "25px", margin: "50px",
                   backgroundColor: "rgba(155,255,200, .3)",
-                  maxWidth: "250px",
+                  width: "250px",
                   borderRadius: "10px",
                   boxShadow: "10px 10px  10px rgba(155, 255, 200, 0.75)",}}>
+                  <h2 style={{flexwrap: "none", textAlign: "center"}}>Track Details</h2>
                       here is some details about each track but its not part of crud so ill get to it later to be specific each track
+                     <NavLink to="/tracks/new">Add Track</NavLink>
             </div>
           </div>
           <div className="track-review-container" style={{border: "3px solid purple"}}>
@@ -90,7 +98,7 @@ function OneTrack(pl, id) {
           </div>
         </div>
       ) : (
-        "track not found"
+        ""
       )}
     </div>
   );

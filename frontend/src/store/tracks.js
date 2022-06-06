@@ -154,10 +154,11 @@ const trackReducer = (state = initialState, action) => {
         case LOAD_ONE_TRACK:
             const oneTrack = {}
            oneTrack[action.pl.id] = action.pl
+        //    console.log(oneTrack, "157")
            return {
                ...state,
                [action.pl.id]: action.pl,
-               oneTrack
+                oneTrack
            }
         case CREATE_TRACK:
             if(!state[action.track.id]) {
