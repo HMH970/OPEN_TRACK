@@ -76,7 +76,12 @@ router.post("/", validateTrackAddForm, asyncHandler(async(req, res) => {
 router.get(`/:trackId(\\d+)`, asyncHandler(async(req,res) => {
     const {trackId} = req.params;
     const track = await Track.findByPk(trackId, {
-        include: [User, Image]
+        include: {
+            model: Image,
+            where: {
+                trackId: id
+            }
+        }
     })
     return res.json(track)
 }))

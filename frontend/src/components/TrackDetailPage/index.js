@@ -34,11 +34,11 @@ function OneTrack(pl, id) {
     };
   }, [dispatch]);
 
- 
+
 
   return (
     <div >
-      {trackClone.length > 0 ? (
+      {trackClone.length > 0  ?(
         <div className="track-detail-page" style={{padding: "5px 25px 25px 25px", backgroundColor: "lightgray", height: "90%", display: "flex", flexDirection: "row", justifyContent: "center",alignItems: "center", padding: "5px"}}>
           <div className="track-card" style={{maxWidth: "75%", marginRight: "25px"}}>
             <div className="track-card-img" style={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
