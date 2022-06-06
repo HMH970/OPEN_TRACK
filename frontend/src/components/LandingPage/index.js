@@ -1,6 +1,6 @@
 import './LandingPage.css'
 import React, {useState, useEffect}from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {useHistory, Redirect} from 'react-router-dom';
 import * as trackActions from "../../store/tracks"
@@ -13,11 +13,12 @@ function LandingPage() {
     const [isLoaded, setIsLoaded] = useState(false)
     const allTracks = useSelector((state) => state.track)
     const sessionUser = useSelector((state) => state.session.user)
+    const tryingThis = useSelector((state) => Object.values(state.tracks))
 
     const trackArr = Object.values(allTracks);
     let Images;
     let urlArr = []
-    trackArr.map((track) => {
+    trackArr.forEach((track) => {
         Images = track.Images
         let arr = Object.values(Images)
         urlArr.push(arr[0].url)
@@ -49,9 +50,9 @@ const loadTrack = (e) => {
                 return (
                     <div key={track.id} className="all-tracks-div" style={{backgroundColor: "lightgray", flexDirection: 'row'}}>
                         <div className="track-detail"style={{border: "1px dotted rgba(155, 255, 200, .7)",listStyleType: "none", display: "flex", flexDirection: "column", justifyContent: "center", width: "80%", alignItems: "center"}}>
-                            <Link to={`tracks/${track.id}`}  className="track-detail-img-container">
+                            <NavLink key={track.id}to={`tracks/${track.id}`}  className="track-detail-img-container">
                                 <img style={{backgroundImage: `url(${urlArr[track.id -1]})`, height: "250px", width: "250px", borderRadius: "10px", boxShadow: "5px 5px 5px rgba(155, 255, 200, 0.5)"}}src={`${urlArr[track.id -1]}`}/>
-                            </Link>
+                            </NavLink>
                             <h2 className="track-detail-h2">{`${track?.name}`}</h2>
                             <div className="track-details-con">{`${track?.address}`}</div>
                             <div className="track-details-con">{`${track?.city}`}, {`${track?.state}`} {`${track?.country}`}</div>

@@ -1,10 +1,17 @@
-import {csrfFetch} from "./csrf"
+import  ValidationError  from "../utils/validationError"
+import {csrfFetch, restoreCSRF} from "./csrf"
+// import {ValidationError} from "../utils/validationError"
+
+import {LOAD_REVIEWS, DELETE_REVIEW, ADD_REVIEW, UPDATE_REVIEW} from "./reviews"
+
 
 
 //action types
 const LOAD_TRACKS = "tracks/getTracks"
 const LOAD_ONE_TRACK ="tracks/getOneTrack"
 const CREATE_TRACK = "tracks/addTrack"
+const DELETE_TRACK = "tracks/deleteTrack"
+const UPDATE_TRACK = "tracks/updateTrack"
 //action creators
 const load = (list) => {
     return {
@@ -27,59 +34,112 @@ const addTrack = (pl) => {
     }
 }
 
+// const updateTrack = (track) => {
+//     type: UPDATE_TRACK,
+//     track
+// }
+
+const deleteTrack = (trackId) => ({
+    type: DELETE_TRACK,
+    trackId
+})
+
 //thunkity thunk thunk
 // get all tracks DONE
 export const getTracks = () => async (dispatch) => {
     //send request from front end to backend
     const response = await csrfFetch('/api/tracks')
-    const tracks = await response.json() //an array with objects of all the tracks
-
-    dispatch(load(tracks))
-    return tracks
+    if(response.ok){
+        const tracks = await response.json() //an array with objects of all the tracks
+        dispatch(load(tracks))
+    }
 }
 //Get One Track
 export const getOneTrack = (id) => async (dispatch) => {
     const response = await csrfFetch(`/api/tracks/${id}`);
 
-
-      const track = await response.json();
-// console.log("TRACK", track, "ID:", id)
-      dispatch(getOne(track));
-    return track
+    if(response.ok){
+        const track = await response.json();
+        dispatch(getOne(track));
+    }
   };
   //create track
   export const createTrack = (data) => async (dispatch) => {
-
+ try {
     const { name, address, city, state, country, phone, web, price } = data
     const response = await csrfFetch("/api/tracks", {
       method: "POST",
-      headers: {
-          "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        userId: 1, name, address, city, state, country, phone, web, price
-      })
+      body: JSON.stringify(data)
     });
+    if(!response.ok) {
+        let error;
+        if (response.status === 422) {
+            throw new ValidationError(error.errors, response.statusText)
+        } else {
+            let jsonError;
+            error = await response.text();
+            try {
+             jsonError = JSON.parse(error);
+         } catch {
+             throw new Error(error);
+         }
+            throw new Error(`${jsonError.title}: ${jsonError.message}`);
+        }
+    }
+    const newTrack = await response.json();
+    dispatch(addTrack(newTrack));
+    return newTrack
+  } catch (error) {
+      throw error;
+  }
+}
 
-    const track = await response.json();
-    dispatch(addTrack(track));
-    return track
-  };
+export const updateTrack = (data) => async(dispatch) => {
+    const response = await csrfFetch(`api/tracks/${data.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data),
+    })
+    if (response.ok) {
+        const updatedTrack = await response.json();
+        dispatch(addTrack(updatedTrack))
+        return updatedTrack
+    }
+}
+export const delete_Track = (trackId) => async (dispatch) => {
+    const response = await csrfFetch(`api/tracks/${trackId}`, {
+        method: 'DELETE',
+    })
+    if(response.ok) {
+        const track = await response.json();
+        dispatch(deleteTrack(track));
+        return trackId
+    }
+}
+
+export const getComments = (trackId) => async(dispatch) => {
+    const response = await fetch(`/api/tracks/${trackId}/reviews`);
+
+
+  if (response.ok) {
+
+    const list = await response.json();
+    // Data from backend, into regular action
+    dispatch(load(list));
+  }
+}
+
+
 
 //initial state
 const initialState = {
 
 }
 
-// const sortList = (list) => {
-//     return list.sort((trackA, trackB) => {
-//         return trackA.name - trackB.name;
-//     }).map((track) => track.id)
-// }
-
 //reducer
 const trackReducer = (state = initialState, action) => {
-
     switch(action.type) {
         case LOAD_TRACKS:
             const allTracks = {}
@@ -87,8 +147,8 @@ const trackReducer = (state = initialState, action) => {
                 allTracks[track.id] = track;
             })
             return {
+                ...state,
                 ...allTracks,
-
 
             }
         case LOAD_ONE_TRACK:
@@ -117,6 +177,47 @@ const trackReducer = (state = initialState, action) => {
                   ...action.track,
                 },
               };
+              case UPDATE_TRACK:
+                  return {
+                      ...state,
+                      [action.track.id]: action.track
+                  }
+              case DELETE_TRACK:
+                const newState = { ...state };
+                delete newState[action.trackId]
+                return newState;
+              case LOAD_REVIEWS:
+                  return {
+                      ...state,
+                      [action.trackId]: {
+                          ...state[action.trackId],
+                          reviews: action.reviews.map((review) => review.id)
+                      }
+                  }
+               case DELETE_REVIEW:
+                  return {
+                      ...state,
+                      [action.trackId]: {
+                          ...state[action.trackId],
+                          reviews: state[action.trackId].comments.filter(reviewId => reviewId !== action.reviewId)
+                      }
+                  }
+                case ADD_REVIEW:
+                 return {
+                      ...state,
+                      [action.review.trackId]: {
+                          ...state[action.review.trackId],
+                          reviews: [...state[action.review.trackId], action.review.id]
+                      }
+                  }
+                  case UPDATE_REVIEW:
+                 return {
+                      ...state,
+                      [action.review.trackId]: {
+                          ...state[action.review.trackId],
+                          reviews: [...state[action.review.trackId], action.review.id]
+                      }
+                  }
 
     default:
         return state;
